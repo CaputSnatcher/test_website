@@ -1,0 +1,113 @@
+/* Основные стили */
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 56px;
+    background-color: #f8f9fa;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* Навигация */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Фото галерея */
+.photo-gallery {
+    padding: 10px;
+}
+
+.photo-gallery img {
+    width: 100%;
+    margin-bottom: 10px;
+    display: block;
+    border-radius: 5px;
+    transition: transform 0.3s;
+}
+
+.photo-gallery img:hover {
+    transform: scale(1.02);
+}
+
+/* Формы */
+.form-control, .form-select {
+    margin-bottom: 15px;
+}
+
+/* Чат */
+.chat-container {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: white;
+}
+
+.chat-messages {
+    height: 300px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+
+.system-message {
+    color: #6c757d;
+    font-style: italic;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.message-time {
+    color: #6c757d;
+    font-size: 0.8em;
+    margin-right: 10px;
+}
+
+.message-sender {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+/* Письма */
+.mail-item {
+    margin-bottom: 20px;
+}
+
+.mail-files {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #dee2e6;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .photo-gallery {
+        margin-bottom: 20px;
+    }
+    
+    .chat-container {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .col-md-4:not(:nth-child(2)) {
+        display: none;
+    }
+    
+    body {
+        padding-top: 48px;
+    }
+}

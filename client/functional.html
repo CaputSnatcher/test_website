@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Функциональная страница</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Навигация как в index.html -->
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col">
+                <h2>Подгрузка городов через AJAX</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="country" class="form-label">Страна:</label>
+                                <select id="country" class="form-select">
+                                    <option value="">Выберите страну</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="city" class="form-label">Город:</label>
+                                <select id="city" class="form-select" disabled>
+                                    <option value="">Сначала выберите страну</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col">
+                <h2>WebSocket Чат</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div id="chat-container" class="chat-container">
+                            <div id="chat-messages" class="chat-messages"></div>
+                            <div class="chat-controls mt-3">
+                                <input type="text" id="chat-username" class="form-control mb-2" placeholder="Ваше имя">
+                                <div class="input-group">
+                                    <input type="text" id="chat-message" class="form-control" placeholder="Сообщение" disabled>
+                                    <button id="chat-send" class="btn btn-primary" disabled>Отправить</button>
+                                </div>
+                                <button id="chat-disconnect" class="btn btn-danger mt-2">Отключиться</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <h2>Работа с письмами</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <button id="load-mails" class="btn btn-primary">Загрузить письма</button>
+                            <button id="add-mail" class="btn btn-success ms-2">Добавить письмо</button>
+                        </div>
+                        <div id="mail-list" class="mail-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/cities.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/mail.js"></script>
+</body>
+</html>
