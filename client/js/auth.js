@@ -41,28 +41,36 @@ function checkAuth() {
     // Страницы авторизации
     const authPages = ['auth.html', 'register.html'];
 
-    // Если нет токена и пытается получить доступ к защищенной странице
-    if (!token && protectedPages.includes(currentPage)) {
-        localStorage.removeItem('authToken'); // На всякий случай очищаем токен
-        alert('Пожалуйста, войдите в систему');
-        window.location.href = 'auth.html';
-        return false;
+    // Проверяем есть ли токен
+    if (!token) {
+        // Если пытается получить доступ к защищенной странице без токена
+        if (protectedPages.includes(currentPage)) {
+            localStorage.removeItem('authToken');
+            alert('Пожалуйста, войдите в систему');
+            window.location.href = 'auth.html';
+            return false;
+        }
+        return false; // Нет токена - не авторизован
     }
 
     // Проверяем валидность токена
     if (token) {
         try {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            const isExpired = Date.now() >= payload.exp * 1000;
-
-            if (isExpired) {
-                localStorage.removeItem('authToken');
-                if (protectedPages.includes(currentPage)) {
-                    alert('Сессия истекла. Пожалуйста, войдите снова');
-                    window.location.href = 'auth.html';
-                    return false;
+            // Проверяем токен на сервере
+            fetch('http://localhost:3000/api/verify-token', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-            }
+            }).then(response => {
+                if (!response.ok) {
+                    localStorage.removeItem('authToken');
+                    if (protectedPages.includes(currentPage)) {
+                        alert('Сессия истекла. Пожалуйста, войдите снова');
+                        window.location.href = 'auth.html';
+                        return false;
+                    }
+                }
+            });
         } catch (e) {
             localStorage.removeItem('authToken');
             if (protectedPages.includes(currentPage)) {

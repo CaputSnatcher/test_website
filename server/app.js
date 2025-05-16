@@ -224,6 +224,11 @@ app.delete('/api/mails/:id', authenticateToken, (req, res) => {
 });
 
 // API для городов
+// Проверка валидности токена
+app.get('/api/verify-token', authenticateToken, (req, res) => {
+  res.sendStatus(200);
+});
+
 app.get('/api/cities', (req, res) => {
   const country = req.query.country;
   if (country) {
