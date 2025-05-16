@@ -34,20 +34,51 @@ function generatePassword() {
 function checkAuth() {
     const token = localStorage.getItem('authToken');
     const currentPage = window.location.pathname.split('/').pop();
-    
-    // Если пользователь не авторизован и пытается получить доступ к защищенной странице
-    if (!token && (currentPage === 'functional.html' || currentPage === 'profile.html')) {
+
+    // Защищенные страницы
+    const protectedPages = ['functional.html', 'profile.html'];
+
+    // Страницы авторизации
+    const authPages = ['auth.html', 'register.html'];
+
+    // Если нет токена и пытается получить доступ к защищенной странице
+    if (!token && protectedPages.includes(currentPage)) {
+        localStorage.removeItem('authToken'); // На всякий случай очищаем токен
         alert('Пожалуйста, войдите в систему');
         window.location.href = 'auth.html';
         return false;
     }
-    
-    // Если пользователь авторизован и пытается получить доступ к auth/register
-    if (token && (currentPage === 'auth.html' || currentPage === 'register.html')) {
+
+    // Проверяем валидность токена
+    if (token) {
+        try {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const isExpired = Date.now() >= payload.exp * 1000;
+
+            if (isExpired) {
+                localStorage.removeItem('authToken');
+                if (protectedPages.includes(currentPage)) {
+                    alert('Сессия истекла. Пожалуйста, войдите снова');
+                    window.location.href = 'auth.html';
+                    return false;
+                }
+            }
+        } catch (e) {
+            localStorage.removeItem('authToken');
+            if (protectedPages.includes(currentPage)) {
+                alert('Ошибка авторизации. Пожалуйста, войдите снова');
+                window.location.href = 'auth.html';
+                return false;
+            }
+        }
+    }
+
+    // Если есть валидный токен и пытается получить доступ к страницам авторизации
+    if (token && authPages.includes(currentPage)) {
         window.location.href = 'functional.html';
         return false;
     }
-    
+
     return !!token;
 }
 
