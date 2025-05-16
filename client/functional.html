@@ -9,7 +9,24 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <!-- Навигация как в index.html -->
+        <a class="navbar-brand" href="#">Мой сайт</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="auth.html">Авторизация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="functional.html">Функции</a>
+                    </li>
+                </ul>
+                <button id="logout-btn" class="btn btn-outline-light">Выйти</button>
+            </div>
     </nav>
 
     <div class="container mt-4">
