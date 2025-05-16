@@ -3,10 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const citySelect = document.getElementById('city');
 
   if (countrySelect && citySelect) {
-    // Загрузка списка стран при открытии страницы
     loadCountries();
 
-    // Обработка изменения выбранной страны
     countrySelect.addEventListener('change', function() {
       const selectedCountry = this.value;
       if (selectedCountry) {
@@ -19,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   async function loadCountries() {
     try {
-      const response = await fetch('/api/cities');
+      const response = await fetch('http://localhost:3000/api/cities');
       if (!response.ok) throw new Error('Network response was not ok');
       
       const countriesData = await response.json();
@@ -35,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
       citySelect.disabled = true;
       citySelect.innerHTML = '<option value="">Загрузка...</option>';
       
-      const response = await fetch(`/api/cities?country=${encodeURIComponent(country)}`);
+      const response = await fetch(`http://localhost:3000/api/cities?country=${encodeURIComponent(country)}`);
       if (!response.ok) throw new Error('Network response was not ok');
       
       const cities = await response.json();

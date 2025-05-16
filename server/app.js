@@ -224,16 +224,12 @@ app.delete('/api/mails/:id', authenticateToken, (req, res) => {
 });
 
 // API для городов
-// Маршрут для получения городов
 app.get('/api/cities', (req, res) => {
   const country = req.query.country;
-  try {
-    const countriesData = JSON.parse(fs.readFileSync('./data/countries.json'));
-    const cities = countriesData[country] || [];
-    res.json(cities);
-  } catch (error) {
-    console.error('Error reading countries data:', error);
-    res.status(500).json({ error: 'Internal server error' });
+  if (country) {
+    res.json(countriesData[country] || []);
+  } else {
+    res.json(countriesData);
   }
 });
 
