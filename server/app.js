@@ -242,4 +242,43 @@ function saveMailDB() {
   fs.writeFileSync('./data/maillist.json', JSON.stringify(mailDB, null, 2));
 }
 
+// Загрузка данных магазина
+let productsDB = [];
+let ordersDB = [];
+try {
+  productsDB = JSON.parse(fs.readFileSync('./data/products.json'));
+  ordersDB = JSON.parse(fs.readFileSync('./data/orders.json'));
+} catch (error) {
+  fs.writeFileSync('./data/products.json', JSON.stringify([]));
+  fs.writeFileSync('./data/orders.json', JSON.stringify([]));
+}
+
+// API для магазина
+app.get('/api/products', authenticateToken, (req, res) => {
+  res.json(productsDB);
+});
+
+app.post('/api/products', authenticateToken, (req, res) => {
+  const product = {
+    id: Date.now(),
+    ...req.body,
+    createdBy: req.user.username
+  };
+  productsDB.push(product);
+  fs.writeFileSync('./data/products.json', JSON.stringify(productsDB, null, 2));
+  res.status(201).json(product);
+});
+
+app.post('/api/orders', authenticateToken, (req, res) => {
+  const order = {
+    id: Date.now(),
+    ...req.body,
+    status: 'new',
+    createdBy: req.user.username,
+    createdAt: new Date().toISOString()
+  };
+  ordersDB.push(order);
+  fs.writeFileSync('./data/orders.json', JSON.stringify(ordersDB, null, 2));
+  res.status(201).json(order);
+});
 app.listen(3000, () => console.log('Сервер запущен на порту 3000'));
