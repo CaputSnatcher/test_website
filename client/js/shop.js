@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const authRequired = document.getElementById('auth-required');
     const shopContent = document.getElementById('shop-content');
